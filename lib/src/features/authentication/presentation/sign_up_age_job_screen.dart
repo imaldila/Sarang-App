@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sarang_app/src/common_widgets/custom_button_widget.dart';
+import 'package:sarang_app/src/features/authentication/domain/user_account.dart';
 import 'package:sarang_app/src/features/authentication/presentation/sign_up_upload_photo_screen.dart';
 
 import '../../../common_widgets/banner_widget.dart';
@@ -8,7 +9,15 @@ import '../../../theme_manager/value_manager.dart';
 
 class SignUpAgeJobScreen extends StatefulWidget {
   static const String routeName = '/sign-up-age-job';
-  const SignUpAgeJobScreen({super.key});
+  const SignUpAgeJobScreen(
+      {super.key,
+      required this.fullName,
+      required this.email,
+      required this.password});
+
+  final String fullName;
+  final String email;
+  final String password;
 
   @override
   State<SignUpAgeJobScreen> createState() => _SignUpAgeJobScreenState();
@@ -52,8 +61,20 @@ class _SignUpAgeJobScreenState extends State<SignUpAgeJobScreen> {
               ),
               CustomButtonWidget(
                 title: 'Continue Sign Up',
-                onTap: () => Navigator.pushNamed(
-                    context, SignUpUploadPhotoScreen.routeName),
+                onTap: () {
+                  UserAccount userAccount = UserAccount(
+                    fullName: widget.fullName,
+                    email: widget.email,
+                    password: widget.password,
+                    occupation: jobController.text,
+                    age: ageController.text,
+                  );
+                  Navigator.pushNamed(
+                    context,
+                    SignUpUploadPhotoScreen.routeName,
+                    arguments: userAccount,
+                  );
+                },
               )
             ],
           ),
