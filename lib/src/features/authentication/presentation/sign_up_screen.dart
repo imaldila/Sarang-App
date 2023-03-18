@@ -28,6 +28,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
+  String? validationInput() {
+    if (nameController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        passwordController.text.isEmpty) {
+      return 'Can\'t be empty';
+    }
+
+    if (nameController.text.length < 4 ||
+        emailController.text.length < 4 ||
+        passwordController.text.length < 4) {
+      return 'Too short, minimum 4 Characters';
+    }
+
+    if (!emailController.text.contains('@')) {
+      return 'Email not valid without @';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,15 +78,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: AppSize.s30),
               CustomButtonWidget(
                   title: 'Get Started',
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SignUpAgeJobScreen(
-                          fullName: nameController.text,
-                          email: emailController.text,
-                          password: passwordController.text,
+                  onTap: () {
+                    final message = validationInput();
+
+                    if (message != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(message),
                         ),
-                      ))),
+                      );
+                      return;
+                    }
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SignUpAgeJobScreen(
+                            fullName: nameController.text,
+                            email: emailController.text,
+                            password: passwordController.text,
+                          ),
+                        ));
+                  }),
               const SizedBox(height: AppSize.s20),
               CustomTextButtonWidget(
                 title: 'Sign In to My Account',

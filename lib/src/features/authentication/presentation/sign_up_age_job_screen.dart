@@ -27,6 +27,14 @@ class _SignUpAgeJobScreenState extends State<SignUpAgeJobScreen> {
   final jobController = TextEditingController();
   final ageController = TextEditingController();
 
+  String? validationInput() {
+    if (jobController.text.isEmpty || ageController.text.isEmpty) {
+      return 'Can\'t be empty';
+    }
+
+    return null;
+  }
+
   @override
   void dispose() {
     jobController.dispose();
@@ -62,6 +70,16 @@ class _SignUpAgeJobScreenState extends State<SignUpAgeJobScreen> {
               CustomButtonWidget(
                 title: 'Continue Sign Up',
                 onTap: () {
+                  final message = validationInput();
+
+                  if (message != null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(message),
+                      ),
+                    );
+                    return;
+                  }
                   UserAccount userAccount = UserAccount(
                     fullName: widget.fullName,
                     email: widget.email,
@@ -69,6 +87,7 @@ class _SignUpAgeJobScreenState extends State<SignUpAgeJobScreen> {
                     occupation: jobController.text,
                     age: ageController.text,
                   );
+
                   Navigator.pushNamed(
                     context,
                     SignUpUploadPhotoScreen.routeName,
