@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:sarang_app/src/common_widgets/custom_button_widget.dart';
 import 'package:sarang_app/src/common_widgets/logo_and_tagline_widget.dart';
@@ -5,6 +7,7 @@ import 'package:sarang_app/src/common_widgets/upload_photo_widget.dart';
 import 'package:sarang_app/src/features/likes_you/presentation/explore_people_screen.dart';
 import 'package:sarang_app/src/theme_manager/font_manager.dart';
 import 'package:sarang_app/src/theme_manager/style_manager.dart';
+import 'package:sarang_app/src/utils/image_picker_utils.dart';
 
 import '../../../common_widgets/custom_text_button_widget.dart';
 import '../../../theme_manager/value_manager.dart';
@@ -19,6 +22,17 @@ class SignUpUploadPhotoScreen extends StatefulWidget {
 }
 
 class _SignUpUploadPhotoScreenState extends State<SignUpUploadPhotoScreen> {
+  File? image;
+
+  void getImageProfile(GetCameraFrom source) async {
+    final result = await ImagePickerUtils.getImage(source);
+    if (result != null) {
+      setState(() {
+        image = File(result.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +46,44 @@ class _SignUpUploadPhotoScreenState extends State<SignUpUploadPhotoScreen> {
             children: [
               const LogoAndTaglineWidget(),
               const SizedBox(height: AppSize.s50),
-              const UploadPhotoWidget(),
+              InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) => Container(
+                      padding: const EdgeInsets.all(AppSize.s24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  getImageProfile(GetCameraFrom.camera);
+                                },
+                                icon: const Icon(Icons.camera),
+                              ),
+                              const Text('Take Image From Camera'),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  getImageProfile(GetCameraFrom.gallery);
+                                },
+                                icon: const Icon(Icons.photo),
+                              ),
+                              const Text('Take Image From Photo'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                child: UploadPhotoWidget(image: image),
+              ),
               const SizedBox(height: 53),
               Text(
                 'Aldila Nurhadiputra',
@@ -54,7 +105,8 @@ class _SignUpUploadPhotoScreenState extends State<SignUpUploadPhotoScreen> {
               const SizedBox(height: 20.0),
               CustomTextButtonWidget(
                 title: 'Skip for Now',
-                onPressed: () => Navigator.pushNamed(context, ExplorePeopleScreen.routeName),
+                onPressed: () =>
+                    Navigator.pushNamed(context, ExplorePeopleScreen.routeName),
               )
             ],
           ),

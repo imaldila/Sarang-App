@@ -13,7 +13,7 @@ class ExplorePeopleScreen extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: AppPadding.p40,
+          vertical: AppPadding.p50,
           horizontal: AppPadding.p24,
         ),
         child: Column(
