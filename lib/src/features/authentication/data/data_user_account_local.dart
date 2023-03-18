@@ -30,4 +30,9 @@ class UserAccountRegister {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(userAccountRegisterKey, isRegister);
   }
+
+  static void userAccountLogout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(userAccountRegisterKey);
+  }
 }

@@ -110,9 +110,24 @@ class _SignUpUploadPhotoScreenState extends State<SignUpUploadPhotoScreen> {
                   style: getBlack60TextStyle(),
                 ),
                 const SizedBox(height: 240.0),
-                CustomButtonWidget(
-                  title: 'Update My Profile',
-                  onTap: () {},
+                BlocBuilder<AuthBloc, AuthState>(
+                  builder: (context, state) {
+                    if (state is AuthLoading) {
+                      return const CircularProgressIndicator();
+                    }
+                    return CustomButtonWidget(
+                      title: 'Update My Profile',
+                      onTap: () {
+                        userAccount.imageProfile = image?.path;
+                        context.read<AuthBloc>().add(
+                              RegisterAuthEvent(
+                                userAccount: userAccount,
+                                isRegister: true,
+                              ),
+                            );
+                      },
+                    );
+                  },
                 ),
                 const SizedBox(height: 20.0),
                 CustomTextButtonWidget(
