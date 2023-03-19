@@ -93,6 +93,8 @@ class _ExplorePeopleScreenState extends State<ExplorePeopleScreen> {
                               }
 
                               if (direction == AppinioSwiperDirection.top) {
+                                ScaffoldMessenger.of(context)
+                                    .removeCurrentSnackBar();
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(

@@ -82,6 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     final message = validationInput();
 
                     if (message != null) {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(message),

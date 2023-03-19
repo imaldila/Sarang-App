@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sarang_app/src/common_widgets/custom_button_widget.dart';
-import 'package:sarang_app/src/theme_manager/asset_image_icon_manager.dart';
+import 'package:sarang_app/src/features/likes_you/data/data_hobby_dummy.dart';
 import 'package:sarang_app/src/theme_manager/value_manager.dart';
 
 import '../../../common_widgets/people_detail_image_widget.dart';
@@ -34,14 +34,14 @@ class PeopleProfileScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(right: AppMargin.m16),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(AppSize.s18),
-                  image: const DecorationImage(
+                  image: DecorationImage(
                       image: AssetImage(
-                        '${AssetImageIconManager.imagePath}/img_hobby1.png',
+                        dataHobbyDummy[index],
                       ),
                       fit: BoxFit.cover),
                 ),
               ),
-              itemCount: 4,
+              itemCount: dataHobbyDummy.length,
               scrollDirection: Axis.horizontal,
             ),
           ),
