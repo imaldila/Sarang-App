@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:sarang_app/src/features/likes_you/domain/user.dart';
 
 import '../theme_manager/asset_image_icon_manager.dart';
 import '../theme_manager/font_manager.dart';
@@ -9,7 +9,10 @@ import '../theme_manager/value_manager.dart';
 class GlassCardWidget extends StatelessWidget {
   const GlassCardWidget({
     Key? key,
+    required this.user,
   }) : super(key: key);
+
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +41,14 @@ class GlassCardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Sabrina Anho',
+                user.fullName,
                 style: getWhiteTextStyle(
                   fontSize: FontSizeManager.f20,
                   fontWeight: FontWeightManager.semibold,
                 ),
               ),
               Text(
-                '20, Traveler',
+                '${user.age}, ${user.occupation}',
                 style: getWhiteTextStyle(
                   fontSize: FontSizeManager.f14,
                 ),
@@ -56,9 +59,11 @@ class GlassCardWidget extends StatelessWidget {
             height: 50,
             width: 50,
             decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(
-                        '${AssetImageIconManager.iconPath}/ic_profile.png'))),
+              image: DecorationImage(
+                image: AssetImage(
+                    '${AssetImageIconManager.iconPath}/ic_profile.png'),
+              ),
+            ),
           )
         ],
       ),

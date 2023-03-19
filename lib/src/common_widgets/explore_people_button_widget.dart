@@ -1,8 +1,11 @@
+import 'package:appinio_swiper/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:sarang_app/src/common_widgets/match_button_widget.dart';
 
 class ExplorePeopleButtonWidget extends StatelessWidget {
-  const ExplorePeopleButtonWidget({super.key});
+  const ExplorePeopleButtonWidget({super.key, required this.controller});
+
+  final AppinioSwiperController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +14,9 @@ class ExplorePeopleButtonWidget extends StatelessWidget {
       children: [
         MatchButtonWidget(
           iconPath: 'ic_close.png',
-          onTap: () {},
+          onTap: () {
+            controller.swipeLeft();
+          },
         ),
         MatchButtonWidget(
           dimension: 80,
@@ -20,7 +25,9 @@ class ExplorePeopleButtonWidget extends StatelessWidget {
         ),
         MatchButtonWidget(
           iconPath: 'ic_favorite.png',
-          onTap: () {},
+          onTap: () {
+            controller.swipeRight();
+          },
         ),
       ],
     );

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sarang_app/src/theme_manager/asset_image_icon_manager.dart';
+import 'package:sarang_app/src/features/likes_you/domain/user.dart';
 import 'package:sarang_app/src/theme_manager/color_manager.dart';
 import 'package:sarang_app/src/theme_manager/value_manager.dart';
 
 import 'glass_card_widget.dart';
 
 class MatchCardWidget extends StatelessWidget {
-  const MatchCardWidget({super.key});
+  const MatchCardWidget({super.key, required this.user});
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +17,10 @@ class MatchCardWidget extends StatelessWidget {
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            image: const DecorationImage(
+            image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage(
-                '${AssetImageIconManager.imagePath}/img_people_love2.png',
+                user.imagePath,
               ),
             ),
             borderRadius: BorderRadius.circular(AppSize.s70),
@@ -30,7 +31,7 @@ class MatchCardWidget extends StatelessWidget {
             ),
           ),
         ),
-        const GlassCardWidget()
+        GlassCardWidget(user: user)
       ],
     );
   }
