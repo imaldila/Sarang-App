@@ -5,6 +5,7 @@ import 'package:sarang_app/src/theme_manager/value_manager.dart';
 
 import '../../../common_widgets/people_detail_image_widget.dart';
 import '../../../common_widgets/people_identitas_widget.dart';
+import '../domain/user.dart';
 
 class PeopleProfileScreen extends StatelessWidget {
   static const routeName = 'people-profile';
@@ -12,14 +13,17 @@ class PeopleProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = ModalRoute.of(context)?.settings.arguments as User;
     return Scaffold(
       body: Column(
         children: [
-          const ProfileDetailImageWidget(),
+          ProfileDetailImageWidget(
+            user: user,
+          ),
           const SizedBox(
             height: AppSize.s30,
           ),
-          const PoepleIdentitasWidget(),
+          PoepleIdentitasWidget(user: user),
           Container(
             height: 80.0,
             margin: const EdgeInsets.only(left: AppMargin.m24),

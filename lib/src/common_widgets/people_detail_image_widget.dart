@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:sarang_app/src/features/likes_you/domain/user.dart';
+import 'package:sarang_app/src/features/likes_you/presentation/explore_people_screen.dart';
 
-import '../theme_manager/asset_image_icon_manager.dart';
 import '../theme_manager/font_manager.dart';
 import '../theme_manager/style_manager.dart';
 import '../theme_manager/value_manager.dart';
 import 'match_button_widget.dart';
 
-
 class ProfileDetailImageWidget extends StatelessWidget {
   const ProfileDetailImageWidget({
     Key? key,
+    required this.user,
   }) : super(key: key);
+
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +22,10 @@ class ProfileDetailImageWidget extends StatelessWidget {
         Container(
           width: double.infinity,
           height: 420.0,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(
-                '${AssetImageIconManager.imagePath}/img_people_love1.png',
+                user.imagePath,
               ),
               fit: BoxFit.cover,
             ),
@@ -52,7 +55,8 @@ class ProfileDetailImageWidget extends StatelessWidget {
               MatchButtonWidget(
                 dimension: 20.0,
                 iconPath: 'ic_close_circle.png',
-                onTap: () {},
+                onTap: () => Navigator.pushNamedAndRemoveUntil(
+                    context, ExplorePeopleScreen.routeName, (route) => false),
               )
             ],
           ),

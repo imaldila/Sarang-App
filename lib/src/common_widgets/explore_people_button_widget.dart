@@ -21,7 +21,9 @@ class ExplorePeopleButtonWidget extends StatelessWidget {
         MatchButtonWidget(
           dimension: 80,
           iconPath: 'ic_love.png',
-          onTap: () {},
+          onTap: () {
+            controller.swipeUp();
+          },
         ),
         MatchButtonWidget(
           iconPath: 'ic_favorite.png',
